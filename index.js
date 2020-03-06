@@ -1,4 +1,4 @@
-function RFile(name){
+export default function RFile(name){
   var a = {
     init(name){
       this.name = name;
