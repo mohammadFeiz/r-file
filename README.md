@@ -1,15 +1,15 @@
-# r-file
+# r-file-system
 ### Create file system using localStorage
 
 ## install
 
 ```
-npm install r-file
+npm install r-file-system
 ```
 ## Usage
 
 ```
-import RFile from 'r-file';
+import RFile from 'r-file-system';
 ```
 
 ## Create or load file system
