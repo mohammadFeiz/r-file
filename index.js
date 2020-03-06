@@ -26,6 +26,9 @@ function RFile(name){
       for(var i = 0; i < this.files.length; i++){if(this.files[i].name === name){return i;}}
       return -1;
     },
+    isExist(name){
+      return this.getIndexByName(name) === -1?false:true;
+    },
     write(file,name = this.getDefaultName()){
       var index = this.getIndexByName(name);
       if(index !== -1){return false;} 
@@ -34,6 +37,7 @@ function RFile(name){
       this.set();
       return true;
     },
+
     update(file,name){
       var index = this.getIndexByName(name);
       if(index === -1){return false;}
@@ -75,11 +79,12 @@ function RFile(name){
         if(typeof file === 'object' && !Object.keys(file).length){this.files.splice(i,1); i--;}
       }
     },
-    duplicate(name){
+    duplicate(name,newName){
+      newName = newName || name + ' - copy';
       var index = this.getIndexByName(name);
       if(index === -1){return false;}
       var file = this.files[index];
-      this.write(file,file.name + ' - copy')
+      this.write(file,newName);
     }
   };
   a.init(name);
@@ -93,6 +98,7 @@ function RFile(name){
     rename:a.rename.bind(a),
     getAll:a.getAll.bind(a),
     clear:a.clear.bind(a),
+    isExist:a.isExist.bind(a),
     duplicate:a.duplicate.bind(a)
   };
 }
