@@ -69,7 +69,7 @@ export default function RFile(name){
       return true;
     },
     clear(){
-      localStorage.clearItem(this.name);
+      localStorage.removeItem(this.name);
     },
     removeEmpty(){
       for(var i = 0; i < this.files.length; i++){
