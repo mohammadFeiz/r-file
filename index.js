@@ -18,9 +18,17 @@ export default function RFile(name){
       return `untitle ${index}`;
     },
     getAll(){return this.files;},
-    read(name){
+    read(name,defaultValue){
       var index = this.getIndexByName(name);
-      return index === -1?false:this.files[index];
+      if(index === -1){
+        if(defaultValue !== undefined){
+          this.write(defaultValue,name);
+          return this.files[this.getIndexByName(name)].file;
+        }
+        else{return false;}
+      }
+      else{return this.files[index].file;}
+      
     },
     getIndexByName(name){
       for(var i = 0; i < this.files.length; i++){if(this.files[i].name === name){return i;}}
@@ -29,9 +37,12 @@ export default function RFile(name){
     isExist(name){
       return this.getIndexByName(name) === -1?false:true;
     },
-    write(file,name = this.getDefaultName()){
+    write(file,name = this.getDefaultName(),force){
       var index = this.getIndexByName(name);
-      if(index !== -1){return false;} 
+      if(index !== -1){
+        if(force){this.update(file,name); return true;}
+        else {return false;}
+      } 
       var createDate = new Date().toGMTString(); 
       this.files.push({name,file,createDate});
       this.set();
